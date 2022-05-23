@@ -9,7 +9,7 @@ This package could be utilized while creating an API server or a command line to
 At first, we need to read the file and unmarshal it with the core structure. The core structure won't unmarshal the fileds  with proper sturcture but it will keep most of the fileds as byte array. But when we need to interpret the contents of the specific filed we can unmarshal them with appropriate structure. We have choose this path to reduce memory footprint, as sometimes `dsinfo.json` file could be big as 10GB.
 
 So initially, we can do something like the following to unmarshal the core structure,
-```
+```go
 var file = "dsinfo.json"
 dsinfoJson, err := ioutil.ReadFile(file)
 if err != nil {
@@ -24,17 +24,17 @@ fmt.Errorf("Cannot unmarshal %s", err)
 After that we can see the contents of the `core`'s filed with the following ways.
 ### To collect the info from `ucp-nodes.txt`
 To collect at Json format , easily parsable by jq
-```
+```go
 nodeInspect := NewNodeParser().GetAllJSON(&core.UcpNodesTxt)
 fmt.Println(nodeInspect)
 ```
 To collect the data with proper structure
-```
+```go
 nodeInspect := NewNodeParser().GetAll(&core.UcpNodesTxt)
 fmt.Println(nodeInspect[0].Description.Engine.EngineVersion)
 ```
 You can also iterate all nodes and collect the info. For details, go to ucpnodestxt.go->type UCPNodesTxtType
-```
+```go
 for k, _ := range nodeInspect {
 	fmt.Printf("Hostname: %s\n\tEngine Version: %s\n\tRole: %s\n", nodeInspect[k].Description.Hostname, nodeInspect[k].Description.Engine.EngineVersion, nodeInspect[k].Spec.Role)
 }
@@ -43,11 +43,11 @@ for k, _ := range nodeInspect {
 Here data is already in json format.
 
 To collect at json format
-```
+```go
 fmt.Println(string(core.UcpTelemetryJson))
 ```
 To collect the data with proper structure. For details go to ucp_controller_config.go
-```
+```go
 data := NewUCPTelemetry().GetAll(&core.UcpTelemetryJson)
 fmt.Printf("Cluster ID: %s\n\tIs Licensed: %v\n\tOS: %s\n\tKernel Version:%s\n", data.ClusterId, data.IsLicensed, data.Os, data.KernelVersion)
 fmt.Println(data.Kubernetes.ManagerReservedResources)
@@ -66,7 +66,7 @@ fmt.Println(data.Kubernetes.ManagerReservedResources)
 - Use `UcpWorkerAgentXTasksTxt` for `ucp-worker-agent-x-service.txt`
 
 To collect at Json format , easily parsable by jq
-```
+```go
 fmt.Println(NewTasksParser().GetAllJSON(&core.UcpAuthApiTasksTxt))
 fmt.Println(NewTasksParser().GetAllJSON(&core.UcpAuthWorkerTasksTxt))
 fmt.Println(NewTasksParser().GetAllJSON(&core.UcpClusterAgentTasksTxt))
@@ -79,12 +79,12 @@ fmt.Println(NewTasksParser().GetAllJSON(&core.UcpWorkerAgentWinXTasksTxt))
 fmt.Println(NewTasksParser().GetAllJSON(&core.UcpWorkerAgentXTasksTxt))
 ```
 To collect the data with proper structure
-```
+```go
 data := NewTasksParser().GetAll(&core.UcpAuthApiTasksTxt)
 fmt.Println(data[0].ServiceID)
 ```
 You can also iterate all fields and collect the info. For details, go to `task_func.go`
-```
+```go
 for k, _ := range data {
     fmt.Printf("Task ID: %s\nImage: %s\n", data[k].ID, data[k].Spec.ContainerSpec.Image)
 }
@@ -99,7 +99,7 @@ for k, _ := range data {
 - Use `UcpWorkerAgentXServiceTxt` for `ucp-worker-agent-x-service.txt`
 
 To collect at json format
-```
+```go
 fmt.Println(string(core.UcpAuthApiServiceTxt))
 fmt.Println(string(core.UcpAuthWorkerServiceTxt))
 fmt.Println(string(core.UcpClusterAgentServiceTxt))
@@ -109,7 +109,7 @@ fmt.Println(string(core.UcpWorkerAgentWinXServiceTxt))
 fmt.Println(string(core.UcpWorkerAgentXServiceTxt))
 ```
 To collect the data with proper structure. For details go to service_func.go
-```
+```go
 data := NewServiceParser().GetAll(&core.UcpAuthApiServiceTxt)
 fmt.Printf("Name: %s\nID: %s\nImage: %s\n", data.Spec.Name, data.ID, data.Spec.TaskTemplate.ContainerSpec.Image)
 ```
@@ -117,11 +117,11 @@ fmt.Printf("Name: %s\nID: %s\nImage: %s\n", data.Spec.Name, data.ID, data.Spec.T
 Here data is already in json format
 
 To collect at json format
-```
+```go
 fmt.Println(string(core.MirantisLic))
 ```
 To collect the data with proper structure. For details go to `mirantis_lic.go`
-```
+```go
 data := NewLicenseType().GetAll(&core.MirantisLic)
 fmt.Printf("Max Engine: %d\nExpiration Date: %s\n", data.Details.MaxEngines, data.Details.Expiration)
 ```
@@ -129,11 +129,11 @@ fmt.Printf("Max Engine: %d\nExpiration Date: %s\n", data.Details.MaxEngines, dat
 Here data is already in json format
 
 To collect at json format
-```
+```go
 fmt.Println(string(core.UcpControllerConfigJson))
 ```
 To collect the data with proper structure. For details go to ucp_controller_config.go
-```
+```go
 data := NewUCPControllerConfigType().GetAll(&core.UcpControllerConfigJson)
 fmt.Println(data.IngressController.Enabled)
 fmt.Println(data.Kubernetes.ManagerReservedResources)
@@ -152,7 +152,7 @@ Following files are not in specific format,
 - Use `KubeDescribeNodesTxt` for `kube-describe-nodes.txt`
 
 To just print the string conents,
-```
+```go
 fmt.Println(core.UcpLicenseIdTxt)
 fmt.Println(core.TasksCountTxt)
 fmt.Println(core.IngressDescribeAllTxt)
