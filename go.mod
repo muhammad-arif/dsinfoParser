@@ -1,4 +1,4 @@
-module github.com/muhammad-arif/dsinfoParser
+module github.com/muhammad-arif/dsinfoParsingLibrary
 
 go 1.17
 
