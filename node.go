@@ -1,4 +1,4 @@
-package dsinfoparser // import "github.com/docker/docker/api/types/swarm"
+package parser // import "github.com/docker/docker/api/types/swarm"
 
 // Node represents a node.
 type Node struct {

@@ -1,4 +1,4 @@
-package dsinfoparser
+package parser
 
 import (
 	"encoding/json"
