@@ -1,4 +1,4 @@
-package parser // import "github.com/docker/docker/api/types/swarm"
+package dsinfoParsingLibrary // import "github.com/docker/docker/api/types/swarm"
 
 import "os"
 
