@@ -1,6 +1,8 @@
-package dsinfoParsingLibrary
+package main
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 type CoreDsinfo struct {
 	AuthConfigTxt                 []interface{}   `json:"auth-config.txt"`

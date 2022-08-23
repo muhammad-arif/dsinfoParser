@@ -1,9 +1,12 @@
-package dsinfoParsingLibrary
+package main
 
 import (
 	"encoding/json"
 	"fmt"
+	swarmTypes "github.com/docker/docker/api/types/swarm"
 )
+
+type Service swarmTypes.Service
 
 func NewServiceParser() *Service {
 	return &Service{}

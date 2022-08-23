@@ -1,9 +1,12 @@
-package dsinfoParsingLibrary
+package main
 
 import (
 	"encoding/json"
 	"fmt"
+	swarmTypes "github.com/docker/docker/api/types/swarm"
 )
+
+type Task swarmTypes.Task
 
 func NewTasksParser() *Task {
 	return &Task{}

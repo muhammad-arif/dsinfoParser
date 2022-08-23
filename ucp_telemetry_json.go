@@ -1,4 +1,4 @@
-package dsinfoParsingLibrary
+package main
 
 import (
 	"encoding/json"
