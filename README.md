@@ -151,7 +151,7 @@ Following files are not in specific format,
 - Use `KubeDescribeAllTxt` for `kube-describe-all.txt`
 - Use `KubeDescribeNodesTxt` for `kube-describe-nodes.txt`
 
-To just print the string conents,
+To just print the string conents [some might require type assertion with string],
 ```go
 fmt.Println(core.UcpLicenseIdTxt)
 fmt.Println(core.TasksCountTxt)
@@ -163,4 +163,29 @@ fmt.Println(core.IngressNginxControllerTxt)
 fmt.Println(core.IngressNginxControllerTxt)
 fmt.Println(core.KubeDescribeNodesTxt)
 fmt.Println(core.KubeDescribeAllTxt)
+```
+To get the (per node) nested dsinfo.json file structure,
+```go
+var file = "/home/arif/Documents/github/powerplug/dsinfo.json"
+dsinfoJson, err := ioutil.ReadFile(file)
+if err != nil {
+fmt.Errorf("cannot Read File %s", err)
+}
+var nestedDsinfo = make(map[string]json.RawMessage)
+err = json.Unmarshal(dsinfoJson, &nestedDsinfo)
+if err != nil {
+fmt.Errorf("Cannot unmarshal %s", err)
+}
+
+var nodeDsinfoStruct dsinfoSlashDsinfoDotJson
+err = json.Unmarshal(nestedDsinfo["node01"], &nodeDsinfoStruct)
+if err != nil {
+fmt.Errorf("Cannot unmarshal nesteddsinfo")
+}
+
+var NodeContents NestedDsinfo
+err = json.Unmarshal(nodeDsinfoStruct.DsinfoContents, &NodeContents)
+//following will return the df command's output of "node01"
+fmt.Println(string(NodeContents.Df))
+
 ```
