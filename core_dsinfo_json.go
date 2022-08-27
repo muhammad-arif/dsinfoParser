@@ -44,7 +44,7 @@ type CoreDsinfo struct {
 	UcpWorkerAgentXServiceTxt     json.RawMessage `json:"ucp-worker-agent-x-service.txt"`
 	UcpWorkerAgentXTasksTxt       json.RawMessage `json:"ucp-worker-agent-x-tasks.txt"`
 }
-type dsinfoSlashDsinfoDotJson struct {
+type DsinfoSlashDsinfoDotJson struct {
 	DsinfoContents json.RawMessage `json:"dsinfo/dsinfo.json"`
 }
 type NestedDsinfo struct {
