@@ -164,7 +164,7 @@ fmt.Println(core.IngressNginxControllerTxt)
 fmt.Println(core.KubeDescribeNodesTxt)
 fmt.Println(core.KubeDescribeAllTxt)
 ```
-To get the (per node) nested dsinfo.json file structure,
+## To get the (per node) nested dsinfo.json file structure,
 ```go
 var file = "/home/arif/Documents/github/powerplug/dsinfo.json"
 dsinfoJson, err := ioutil.ReadFile(file)
