@@ -89,3 +89,7 @@ type NestedDsinfo struct {
 	Uptime              json.RawMessage `json:"uptime"`
 	Vmstat              json.RawMessage `json:"vmstat"`
 }
+type ContainerInfo struct {
+	Inspect string `json:"inspect"`
+	Logs    string `json:"logs"`
+}
