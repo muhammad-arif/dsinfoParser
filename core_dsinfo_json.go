@@ -2,6 +2,7 @@ package dsinfoParsingLibrary
 
 import (
 	"encoding/json"
+	"github.com/docker/docker/api/types"
 )
 
 type CoreDsinfo struct {
@@ -50,7 +51,7 @@ type DsinfoSlashDsinfoDotJson struct {
 type NestedDsinfo struct {
 	Calico              json.RawMessage `json:"calico"`
 	ClusterInfo         json.RawMessage `json:"cluster_info"`
-	ContainerInfo       json.RawMessage `json:"container_info"`
+	ContainerInfo       ContainerInfo   `json:"container_info"`
 	DaemonStackTrace    json.RawMessage `json:"daemon_stack_trace"`
 	DciDeployment       json.RawMessage `json:"dci_deployment"`
 	DeadContainerMounts json.RawMessage `json:"dead_container_mounts"`
@@ -90,6 +91,6 @@ type NestedDsinfo struct {
 	Vmstat              json.RawMessage `json:"vmstat"`
 }
 type ContainerInfo struct {
-	Inspect string `json:"inspect"`
-	Logs    string `json:"logs"`
+	Inspect types.ContainerJSON `json:"inspect"`
+	Logs    json.RawMessage     `json:"logs"`
 }
